@@ -1,0 +1,20 @@
+// Set this to how many pixels you want your baseline to be
+// Best is to choose half the line-height of your body copy
+$baseline-height: 12; // 12 assumes 16px text with 150% (24px) line height: 24 / 2 = 12
+
+@mixin rhythm($property, $px){
+	@if $px > $baseline-height { // If the pixel value is larger than the baseline-height
+		$px: $baseline-height * round($px / $baseline-height); // Round px value to nearest whole multiple of the baseline-height
+	}
+	@else if $px < $baseline-height{ // If the pixel value is smaller than the baseline-height
+		$px: $baseline-height; // Make pixel value the baseline height
+	}
+
+	#{$property}: $px + px;
+}
+
+// TESTING
+p{
+	background-color: red;
+	@include rhythm("height", 5);
+}
